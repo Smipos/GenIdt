@@ -40,7 +40,7 @@ namespace GenIdtConsoleApp
             diagnoses[3] = "нормальный";
             diagnoses[4] = "талант";
             diagnoses[5] = "гений";
-            string yourDiagnose = $"Ваш диагноз: {diagnoses[countRightAnswers]}";
+            string yourDiagnose = $"ваш диагноз: {diagnoses[countRightAnswers]}";
             return yourDiagnose;
         }
 
@@ -51,7 +51,10 @@ namespace GenIdtConsoleApp
             int countQuestions = 5;
             string[] questions = GetQuestions(countQuestions); 
             int[] answers = GetRightAnswer(countQuestions);
-         
+
+            Console.WriteLine("Приветствую! Введите пожалуйста свое имя: ");
+            string userName = Console.ReadLine();
+
 
             int countRightAnswers = 0;
 
@@ -79,7 +82,7 @@ namespace GenIdtConsoleApp
             }
 
             Console.WriteLine("Количество правильных ответов: " + countRightAnswers);
-            Console.WriteLine(GiveDiagnose(countRightAnswers));
+            Console.WriteLine($"{userName}, " + GiveDiagnose(countRightAnswers));
 
         }
     }
