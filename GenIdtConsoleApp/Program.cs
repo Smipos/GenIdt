@@ -46,44 +46,55 @@ namespace GenIdtConsoleApp
 
 
 
-        static void Main(string[] args)
+        static void Main()
         {
-            int countQuestions = 5;
-            string[] questions = GetQuestions(countQuestions); 
-            int[] answers = GetRightAnswer(countQuestions);
-
-            Console.WriteLine("Приветствую! Введите пожалуйста свое имя: ");
-            string userName = Console.ReadLine();
-
-
-            int countRightAnswers = 0;
-
-            Random random = new Random();
-
-            
-
-            for (int i = 0; i < countQuestions; i++)
+            while (true)
             {
-                Console.WriteLine("Вопрос №" + (i + 1));
 
-                int randomQuestionIndex = random.Next(0, countQuestions);
-                Console.WriteLine(questions[randomQuestionIndex]);
+                int countQuestions = 5;
+                string[] questions = GetQuestions(countQuestions);
+                int[] answers = GetRightAnswer(countQuestions);
 
-                int userAnswer = Convert.ToInt32(Console.ReadLine());
 
-                int rightAnswer = answers[randomQuestionIndex];
 
-                if (userAnswer == rightAnswer)
+
+                int countRightAnswers = 0;
+
+                Random random = new Random();
+
+                Console.WriteLine("Приветствую! Введите пожалуйста свое имя: ");
+                string userName = Console.ReadLine();
+
+                for (int i = 0; i < countQuestions; i++)
                 {
-                    countRightAnswers++;
+                    Console.WriteLine("Вопрос №" + (i + 1));
+
+                    int randomQuestionIndex = random.Next(0, countQuestions);
+                    Console.WriteLine(questions[randomQuestionIndex]);
+
+                    int userAnswer = Convert.ToInt32(Console.ReadLine());
+
+                    int rightAnswer = answers[randomQuestionIndex];
+
+                    if (userAnswer == rightAnswer)
+                    {
+                        countRightAnswers++;
+                    }
+
+
                 }
-                    
-                
+
+                Console.WriteLine("Количество правильных ответов: " + countRightAnswers);
+                Console.WriteLine($"{userName}, " + GiveDiagnose(countRightAnswers));
+
+
+
+                Console.WriteLine("Хотите пройти тест еще раз?");
+                Console.WriteLine("y / n");
+
+                if (Console.ReadKey(true).Key != ConsoleKey.Y)
+                    break;
             }
-
-            Console.WriteLine("Количество правильных ответов: " + countRightAnswers);
-            Console.WriteLine($"{userName}, " + GiveDiagnose(countRightAnswers));
-
         }
     }
 }
