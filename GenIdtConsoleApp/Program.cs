@@ -91,7 +91,6 @@ namespace GenIdtConsoleApp
 
                 Console.WriteLine("Хотите пройти тест еще раз?");
                 Console.WriteLine("y / n");
-
                 if (Console.ReadKey(true).Key != ConsoleKey.Y)
                     break;
             }
