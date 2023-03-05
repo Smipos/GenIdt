@@ -52,42 +52,40 @@ namespace GenIdtConsoleApp
             {
 
                 int countQuestions = 5;
+                int i = 0;
+                int countRightAnswers = 0;
                 string[] questions = GetQuestions(countQuestions);
                 int[] answers = GetRightAnswer(countQuestions);
-
-
-
-
-                int countRightAnswers = 0;
+                string[] emptyMas = new string[countQuestions];
 
                 Random random = new Random();
 
                 Console.WriteLine("Приветствую! Введите пожалуйста свое имя: ");
                 string userName = Console.ReadLine();
 
-                for (int i = 0; i < countQuestions; i++)
+                while (countQuestions > 0)
                 {
                     Console.WriteLine("Вопрос №" + (i + 1));
-
                     int randomQuestionIndex = random.Next(0, countQuestions);
-                    Console.WriteLine(questions[randomQuestionIndex]);
+                    emptyMas[i] = questions[randomQuestionIndex]; 
+
+                    List<string> questionsList = questions.ToList();
+                    questionsList.RemoveAt(randomQuestionIndex);
+                    questions = questionsList.ToArray();
+
+                    Console.WriteLine(emptyMas[i]);
 
                     int userAnswer = Convert.ToInt32(Console.ReadLine());
-
                     int rightAnswer = answers[randomQuestionIndex];
-
                     if (userAnswer == rightAnswer)
-                    {
                         countRightAnswers++;
-                    }
 
-
+                    i++;
+                    countQuestions--;
                 }
 
                 Console.WriteLine("Количество правильных ответов: " + countRightAnswers);
                 Console.WriteLine($"{userName}, " + GiveDiagnose(countRightAnswers));
-
-
 
                 Console.WriteLine("Хотите пройти тест еще раз?");
                 Console.WriteLine("y / n");
