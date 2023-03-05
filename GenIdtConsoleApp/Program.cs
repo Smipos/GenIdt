@@ -10,19 +10,6 @@ namespace GenIdtConsoleApp
 
     internal class Program
     {
-        /*
-        static void RemoveAt(ref string[] arr, int index)
-        {
-            string[] newArray = new string[arr.Length - 1];
-
-            for (int i = 0; i < index; i++)
-                newArray[i] = arr[i];
-            for (int i = index + 1; i < arr.Length; i++)
-                newArray[i - 1] = arr[i];
-
-            arr = newArray;
-        }
-        */
 
         static string[] GetQuestions(int countQuestions)
         {
@@ -76,22 +63,30 @@ namespace GenIdtConsoleApp
             Console.WriteLine("Приветствую! Введите пожалуйста свое имя: ");
             string userName = Console.ReadLine();
 
-            for (int i = 0; i < countQuestions; i++)
+            int i = 0;
+
+            while (countQuestions > 0)
             {
                 Console.WriteLine("Вопрос №" + (i + 1));
-
                 int randomQuestionIndex = random.Next(0, countQuestions);
-                //---------------------------------------------------------
-                //Переделаем, чтобы вопросы не повторялись
-
                 emptyMas[i] = questions[randomQuestionIndex]; //присвоение
-                //RemoveAt(ref questions, randomQuestionIndex);
-                Console.WriteLine(emptyMas[i]); //Написали вопрос
+
+                Console.WriteLine(randomQuestionIndex);
+                //Удаление
+                List<string> questionsList = questions.ToList();
+                questionsList.RemoveAt(randomQuestionIndex);
+                questions = questionsList.ToArray();
+
+
+                countQuestions--;
+
+
+                Console.WriteLine(emptyMas[i]);
 
 
 
 
-                
+
                 int userAnswer = Convert.ToInt32(Console.ReadLine());
 
                 int rightAnswer = answers[randomQuestionIndex];
@@ -100,9 +95,48 @@ namespace GenIdtConsoleApp
                 {
                     countRightAnswers++;
                 }
-                    
+                i++;
+            }
+            //Здесь задаются вопросы
+         /*  
+            for (int i = 0; i <= countQuestions; i++)
+            {
+                Console.WriteLine("Вопрос №" + (i + 1));
+                //---------------------------------------------------------
+                //Переделаем, чтобы вопросы не повторялись
+
+
+                int randomQuestionIndex = random.Next(0, countQuestions);
+                emptyMas[i] = questions[randomQuestionIndex]; //присвоение
+
+                Console.WriteLine(randomQuestionIndex);
+                //Удаление
+                List<string> questionsList = questions.ToList();
+                questionsList.RemoveAt(randomQuestionIndex);
+                questions = questionsList.ToArray();
+
+
+                countQuestions--;
+
+               
+                Console.WriteLine(emptyMas[i]);
+
+                
+
+
+
+                int userAnswer = Convert.ToInt32(Console.ReadLine());
+
+                int rightAnswer = answers[randomQuestionIndex];
+
+                if (userAnswer == rightAnswer)
+                {
+                    countRightAnswers++;
+                }
+                
                 
             }
+          */  
 
             Console.WriteLine("Количество правильных ответов: " + countRightAnswers);
             Console.WriteLine($"{userName}, ваш диагноз:" + GiveDiagnose(countRightAnswers));
