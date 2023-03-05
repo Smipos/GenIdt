@@ -6,9 +6,24 @@ using System.Threading.Tasks;
 
 namespace GenIdtConsoleApp
 {
-    
+   
+
     internal class Program
     {
+        /*
+        static void RemoveAt(ref string[] arr, int index)
+        {
+            string[] newArray = new string[arr.Length - 1];
+
+            for (int i = 0; i < index; i++)
+                newArray[i] = arr[i];
+            for (int i = index + 1; i < arr.Length; i++)
+                newArray[i - 1] = arr[i];
+
+            arr = newArray;
+        }
+        */
+
         static string[] GetQuestions(int countQuestions)
         {
             string[] questions = new string[countQuestions];
@@ -49,23 +64,34 @@ namespace GenIdtConsoleApp
         static void Main(string[] args)
         {
             int countQuestions = 5;
-            string[] questions = GetQuestions(countQuestions); 
+            string[] questions = GetQuestions(countQuestions); //Заполненный массив questions
             int[] answers = GetRightAnswer(countQuestions);
-         
-
+            string[] emptyMas = new string[countQuestions];
+            //Цикл должен пройти по всем вопросам, присвоив пустому массиву emptyMas значение случайного элемента из questions
+            //Затем удаляем элемент из questions, присвоенный массиву emptyMas
             int countRightAnswers = 0;
 
             Random random = new Random();
 
-            
+            Console.WriteLine("Приветствую! Введите пожалуйста свое имя: ");
+            string userName = Console.ReadLine();
 
             for (int i = 0; i < countQuestions; i++)
             {
                 Console.WriteLine("Вопрос №" + (i + 1));
 
                 int randomQuestionIndex = random.Next(0, countQuestions);
-                Console.WriteLine(questions[randomQuestionIndex]);
+                //---------------------------------------------------------
+                //Переделаем, чтобы вопросы не повторялись
 
+                emptyMas[i] = questions[randomQuestionIndex]; //присвоение
+                //RemoveAt(ref questions, randomQuestionIndex);
+                Console.WriteLine(emptyMas[i]); //Написали вопрос
+
+
+
+
+                
                 int userAnswer = Convert.ToInt32(Console.ReadLine());
 
                 int rightAnswer = answers[randomQuestionIndex];
@@ -79,7 +105,7 @@ namespace GenIdtConsoleApp
             }
 
             Console.WriteLine("Количество правильных ответов: " + countRightAnswers);
-            Console.WriteLine(GiveDiagnose(countRightAnswers));
+            Console.WriteLine($"{userName}, ваш диагноз:" + GiveDiagnose(countRightAnswers));
 
         }
     }
