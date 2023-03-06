@@ -48,7 +48,6 @@ namespace GenIdtConsoleApp
                     questionNumber++;
                     countQuestions--;
                 }
-
                 Console.WriteLine("Количество правильных ответов: " + countRightAnswers);
                 Console.WriteLine($"{userName}, " + GetDiagnose(countRightAnswers));
 
@@ -105,8 +104,6 @@ namespace GenIdtConsoleApp
             answers = answersList.ToArray();
 
             return new Tuple<string[], int[]>(questions, answers);
-
         }
-
     }
 }
