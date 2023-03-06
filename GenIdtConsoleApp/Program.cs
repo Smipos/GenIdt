@@ -6,17 +6,14 @@ using System.Threading.Tasks;
 
 namespace GenIdtConsoleApp
 {
-    
     internal class Program
     {
         static void Main()
         {
-
             while (true)
             {
-
-                int countQuestions = 5;
-                int i = 0;
+                int countQuestions = 5; // убрать необходимость прописывать в main количество вопросов
+                int i = 0;  // неименнованная переменная
                 int countRightAnswers = 0;
                 var questions = GetQuestions(countQuestions);
                 var answers = GetRightAnswer(countQuestions);
@@ -36,6 +33,7 @@ namespace GenIdtConsoleApp
                     emptyMasQuestions[i] = questions[randomQuestionIndex];
                     emptyMasAnswers[i] = answers[randomQuestionIndex];
 
+                    // подумай, как можно вынести перемешивание в отдельную функцию
                     var questionsList = questions.ToList();
                     questionsList.RemoveAt(randomQuestionIndex);
                     questions = questionsList.ToArray();
@@ -50,9 +48,10 @@ namespace GenIdtConsoleApp
                     int rightAnswer = emptyMasAnswers[i];
                     if (userAnswer == rightAnswer)
                         countRightAnswers++;
-
-                       
-
+                    // старайся не оставлять так много пустых строк между комаднами.
+                    // 1 - между полями класса
+                    // 1, 2 - по смыслу
+                    // 4 - зачем?
                     i++;
                     countQuestions--;
                 }
@@ -69,6 +68,10 @@ namespace GenIdtConsoleApp
 
         static string[] GetQuestions(int countQuestions)
         {
+            // Подумай и реализуй вариант, как сделать более удобной задачу добавления новых вопросов с ответами (чтобы количество правок было в минимальном количестве мест)
+            // И вообще, продумай ситуацию, когда могут добавить ещё вопросы, возможно ли такое, что в этом случае код программы будет работать не адекватно? 
+            // Может быть структуру приложения в этом случае лучше изменить? (Я не намекаю, может и не нужно менять, просто хочу чтобы ты задался этим вопросом)
+
             string[] questions = new string[countQuestions];
             questions[0] = "Сколько будет два плюс два умноженное на два?";
             questions[1] = "Бревно нужно распилить на 10 частей. Сколько распилов нужно сделать?";
@@ -89,7 +92,7 @@ namespace GenIdtConsoleApp
             return answers;
         }
 
-        static string GiveDiagnose(int countRightAnswers)
+        static string GetDiagnose(int countRightAnswers)  // лучше использовать стандартный для программистов Get а не Give
         {
             string[] diagnoses = new string[6];
             diagnoses[0] = "кретин";
