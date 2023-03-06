@@ -13,7 +13,7 @@ namespace GenIdtConsoleApp
             while (true)
             {
                 int countQuestions = 5; // убрать необходимость прописывать в main количество вопросов
-                int i = 0;  // неименнованная переменная
+                int questionNumber = 0;  
                 int countRightAnswers = 0;
                 var questions = GetQuestions(countQuestions);
                 var answers = GetRightAnswer(countQuestions);
@@ -28,10 +28,10 @@ namespace GenIdtConsoleApp
 
                 while (countQuestions > 0)
                 {
-                    Console.WriteLine("Вопрос №" + (i + 1));
+                    Console.WriteLine("Вопрос №" + (questionNumber + 1));
                     int randomQuestionIndex = random.Next(0, countQuestions);
-                    emptyMasQuestions[i] = questions[randomQuestionIndex];
-                    emptyMasAnswers[i] = answers[randomQuestionIndex];
+                    emptyMasQuestions[questionNumber] = questions[randomQuestionIndex];
+                    emptyMasAnswers[questionNumber] = answers[randomQuestionIndex];
 
                     // подумай, как можно вынести перемешивание в отдельную функцию
                     var questionsList = questions.ToList();
@@ -42,17 +42,14 @@ namespace GenIdtConsoleApp
                     answersList.RemoveAt(randomQuestionIndex);
                     answers = answersList.ToArray();
 
-                    Console.WriteLine(emptyMasQuestions[i]);
+                    Console.WriteLine(emptyMasQuestions[questionNumber]);
 
                     int userAnswer = Convert.ToInt32(Console.ReadLine());
-                    int rightAnswer = emptyMasAnswers[i];
+                    int rightAnswer = emptyMasAnswers[questionNumber];
                     if (userAnswer == rightAnswer)
                         countRightAnswers++;
-                    // старайся не оставлять так много пустых строк между комаднами.
-                    // 1 - между полями класса
-                    // 1, 2 - по смыслу
-                    // 4 - зачем?
-                    i++;
+
+                    questionNumber++;
                     countQuestions--;
                 }
 
@@ -65,7 +62,6 @@ namespace GenIdtConsoleApp
                     break;
             }
         }
-
         static string[] GetQuestions(int countQuestions)
         {
             // Подумай и реализуй вариант, как сделать более удобной задачу добавления новых вопросов с ответами (чтобы количество правок было в минимальном количестве мест)
@@ -80,7 +76,6 @@ namespace GenIdtConsoleApp
             questions[4] = "Пять свечей горело, две потухли. Сколько свечей осталось?";
             return questions;
         }
-
         static int[] GetRightAnswer(int countQuestions)
         {
             int[] answers = new int[countQuestions];
@@ -91,7 +86,6 @@ namespace GenIdtConsoleApp
             answers[4] = 2;
             return answers;
         }
-
         static string GetDiagnose(int countRightAnswers)  
         {
             string[] diagnoses = new string[6];
@@ -104,6 +98,5 @@ namespace GenIdtConsoleApp
             string yourDiagnose = $"ваш диагноз: {diagnoses[countRightAnswers]}";
             return yourDiagnose;
         }
-
     }
 }
