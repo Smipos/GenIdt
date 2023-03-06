@@ -48,15 +48,18 @@ namespace GenIdtConsoleApp
 
         static void Main()
         {
+            // Когда тестировал программу - при правильных ответах выводит неверный диагноз и неверное количество правильных ответов.
+            // Соответственно - нужно отладить программу
+
             while (true)
             {
 
                 int countQuestions = 5;
                 int i = 0;
                 int countRightAnswers = 0;
-                string[] questions = GetQuestions(countQuestions);
-                int[] answers = GetRightAnswer(countQuestions);
-                string[] emptyMas = new string[countQuestions];
+                var questions = GetQuestions(countQuestions);
+                var answers = GetRightAnswer(countQuestions);
+                var emptyMas = new string[countQuestions];
 
                 Random random = new Random();
 
