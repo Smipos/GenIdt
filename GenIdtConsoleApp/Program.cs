@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -97,6 +98,28 @@ namespace GenIdtConsoleApp
             diagnoses[5] = "гений";
             string yourDiagnose = $"ваш диагноз: {diagnoses[countRightAnswers]}";
             return yourDiagnose;
+        }
+        static string[] MixQuestions(string[] questions, int randomQuestionIndex)
+        {
+            var questionsList = questions.ToList();
+            questionsList.RemoveAt(randomQuestionIndex);
+            questions = questionsList.ToArray();
+            return questions;
+        }
+        static int[] MixAnswers(int[] answers, int randomQuestionIndex)
+        {
+            var answersList = answers.ToList();
+            answersList.RemoveAt(randomQuestionIndex);
+            answers = answersList.ToArray();
+            return answers;
+        }
+
+        static void MixArray<T>(T[] arr, int randomIndex)
+        {
+            var arrList = arr.ToList();
+            arrList.RemoveAt(randomIndex);
+            arr = arrList.ToArray();
+            
         }
     }
 }
