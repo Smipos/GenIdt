@@ -57,7 +57,7 @@ namespace GenIdtConsoleApp
                 }
 
                 Console.WriteLine("Количество правильных ответов: " + countRightAnswers);
-                Console.WriteLine($"{userName}, " + GiveDiagnose(countRightAnswers));
+                Console.WriteLine($"{userName}, " + GetDiagnose(countRightAnswers));
 
                 Console.WriteLine("Хотите пройти тест еще раз?");
                 Console.WriteLine("y / n");
@@ -92,7 +92,7 @@ namespace GenIdtConsoleApp
             return answers;
         }
 
-        static string GetDiagnose(int countRightAnswers)  // лучше использовать стандартный для программистов Get а не Give
+        static string GetDiagnose(int countRightAnswers)  
         {
             string[] diagnoses = new string[6];
             diagnoses[0] = "кретин";
