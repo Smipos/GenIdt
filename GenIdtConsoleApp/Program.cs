@@ -59,7 +59,9 @@ namespace GenIdtConsoleApp
                 int countRightAnswers = 0;
                 var questions = GetQuestions(countQuestions);
                 var answers = GetRightAnswer(countQuestions);
-                var emptyMas = new string[countQuestions];
+                var emptyMasQuestions = new string[countQuestions];
+                var emptyMasAnswers = new int[countQuestions];  
+
 
                 Random random = new Random();
 
@@ -70,18 +72,25 @@ namespace GenIdtConsoleApp
                 {
                     Console.WriteLine("Вопрос №" + (i + 1));
                     int randomQuestionIndex = random.Next(0, countQuestions);
-                    emptyMas[i] = questions[randomQuestionIndex]; 
+                    emptyMasQuestions[i] = questions[randomQuestionIndex];
+                    emptyMasAnswers[i] = answers[randomQuestionIndex];
 
-                    List<string> questionsList = questions.ToList();
+                    var questionsList = questions.ToList();
                     questionsList.RemoveAt(randomQuestionIndex);
                     questions = questionsList.ToArray();
 
-                    Console.WriteLine(emptyMas[i]);
+                    var answersList = answers.ToList();
+                    answersList.RemoveAt(randomQuestionIndex);
+                    answers = answersList.ToArray();
+
+                    Console.WriteLine(emptyMasQuestions[i]);
 
                     int userAnswer = Convert.ToInt32(Console.ReadLine());
-                    int rightAnswer = answers[randomQuestionIndex];
+                    int rightAnswer = emptyMasAnswers[i];
                     if (userAnswer == rightAnswer)
                         countRightAnswers++;
+
+                       
 
                     i++;
                     countQuestions--;
