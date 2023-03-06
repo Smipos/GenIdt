@@ -34,14 +34,9 @@ namespace GenIdtConsoleApp
                     emptyMasQuestions[questionNumber] = questions[randomQuestionIndex];
                     emptyMasAnswers[questionNumber] = answers[randomQuestionIndex];
 
-                    // подумай, как можно вынести перемешивание в отдельную функцию
-                    var questionsList = questions.ToList();
-                    questionsList.RemoveAt(randomQuestionIndex);
-                    questions = questionsList.ToArray();
-
-                    var answersList = answers.ToList();
-                    answersList.RemoveAt(randomQuestionIndex);
-                    answers = answersList.ToArray();
+                    var tupleQuestionsAnswers = MixArray(questions, answers, randomQuestionIndex);
+                    questions = tupleQuestionsAnswers.Item1;
+                    answers =tupleQuestionsAnswers.Item2;
 
                     Console.WriteLine(emptyMasQuestions[questionNumber]);
 
@@ -113,7 +108,7 @@ namespace GenIdtConsoleApp
             answers = answersList.ToArray();
             return answers;
         }
-
+        /*
         static void MixArray<T>(T[] arr, int randomIndex)
         {
             var arrList = arr.ToList();
@@ -121,5 +116,29 @@ namespace GenIdtConsoleApp
             arr = arrList.ToArray();
             
         }
+        
+        static void MixArray<T>(T[] arr, int randomIndex)
+        {
+            var arrList = arr.ToList();
+            arrList.RemoveAt(randomIndex);
+            arr = arrList.ToArray();
+            
+        }
+        */
+
+        public static Tuple<string[], int[]> MixArray(string[] questions, int[] answers, int randomQuestionIndex)
+        {
+            var questionsList = questions.ToList();
+            questionsList.RemoveAt(randomQuestionIndex);
+            questions = questionsList.ToArray();
+
+            var answersList = answers.ToList();
+            answersList.RemoveAt(randomQuestionIndex);
+            answers = answersList.ToArray();
+
+            return new Tuple<string[], int[]>(questions, answers);
+
+        }
+
     }
 }
