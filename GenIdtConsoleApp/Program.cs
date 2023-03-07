@@ -19,8 +19,8 @@ namespace GenIdtConsoleApp
                 int countRightAnswers = 0;
                 var questions = GetQuestions(questionAndAnswerDict);
                 var answers = GetRightAnswer(questionAndAnswerDict);
-                var emptyMasQuestions = new string[countQuestions];
-                var emptyMasAnswers = new int[countQuestions];  
+                var mixedQuestions = new string[countQuestions];
+                var mixedAnswers = new int[countQuestions];
 
                 Random random = new Random();
 
@@ -31,17 +31,17 @@ namespace GenIdtConsoleApp
                 {
                     Console.WriteLine("Вопрос №" + (questionNumber + 1));
                     int randomQuestionIndex = random.Next(0, countQuestions);
-                    emptyMasQuestions[questionNumber] = questions[randomQuestionIndex];
-                    emptyMasAnswers[questionNumber] = answers[randomQuestionIndex];
+                    mixedQuestions[questionNumber] = questions[randomQuestionIndex];
+                    mixedAnswers[questionNumber] = answers[randomQuestionIndex];
 
                     var tupleQuestionsAnswers = MixArray(questions, answers, randomQuestionIndex);
                     questions = tupleQuestionsAnswers.Item1;
                     answers =tupleQuestionsAnswers.Item2;
 
-                    Console.WriteLine(emptyMasQuestions[questionNumber]);
+                    Console.WriteLine(mixedQuestions[questionNumber]);
 
                     int userAnswer = Convert.ToInt32(Console.ReadLine());
-                    int rightAnswer = emptyMasAnswers[questionNumber];
+                    int rightAnswer = mixedAnswers[questionNumber];
                     if (userAnswer == rightAnswer)
                         countRightAnswers++;
 
@@ -96,6 +96,9 @@ namespace GenIdtConsoleApp
         public static Tuple<string[], int[]> MixArray(string[] questions, int[] answers, int randomQuestionIndex)
         {
             var questionsList = questions.ToList();
+            // конвертирование ToList() => ToArray() стирает все преимущества в скорости от использования массива в приложении
+            // может тогда просто List использовать?
+            // или придумать новый алгоритм
             questionsList.RemoveAt(randomQuestionIndex);
             questions = questionsList.ToArray();
 
