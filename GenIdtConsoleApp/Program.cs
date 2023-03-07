@@ -13,14 +13,14 @@ namespace GenIdtConsoleApp
         {
             while (true)
             {
-                int countQuestions = 5; // убрать необходимость прописывать в main количество вопросов
+                var questionAndAnswerDict = GetQuestionAndAnswerDict();
+                int countQuestions = questionAndAnswerDict.Count;
                 int questionNumber = 0;  
                 int countRightAnswers = 0;
-                var questions = GetQuestions(countQuestions);
-                var answers = GetRightAnswer(countQuestions);
+                var questions = GetQuestions(questionAndAnswerDict);
+                var answers = GetRightAnswer(questionAndAnswerDict);
                 var emptyMasQuestions = new string[countQuestions];
                 var emptyMasAnswers = new int[countQuestions];  
-
 
                 Random random = new Random();
 
@@ -54,36 +54,36 @@ namespace GenIdtConsoleApp
                 Console.WriteLine("Хотите пройти тест еще раз?");
                 Console.WriteLine("y / n");
                 if (Console.ReadKey(true).Key != ConsoleKey.Y)
-                    break;
-            }
+                    break;  
+            }      
         }
-        static string[] GetQuestions(int countQuestions)
+        static Dictionary<int, string> GetQuestionAndAnswerDict()
         {
-            // Подумай и реализуй вариант, как сделать более удобной задачу добавления новых вопросов с ответами (чтобы количество правок было в минимальном количестве мест)
-            // И вообще, продумай ситуацию, когда могут добавить ещё вопросы, возможно ли такое, что в этом случае код программы будет работать не адекватно? 
-            // Может быть структуру приложения в этом случае лучше изменить? (Я не намекаю, может и не нужно менять, просто хочу чтобы ты задался этим вопросом)
-
-            string[] questions = new string[countQuestions];
-            questions[0] = "Сколько будет два плюс два умноженное на два?";
-            questions[1] = "Бревно нужно распилить на 10 частей. Сколько распилов нужно сделать?";
-            questions[2] = "На двух руках 10 пальцев. Сколько пальцев на 5 руках?";
-            questions[3] = "Укол делают каждые полчаса. Сколько нужно минут, чтобы сделать три укола?";
-            questions[4] = "Пять свечей горело, две потухли. Сколько свечей осталось?";
+            var questionAndAnswerDict = new Dictionary<int, string>()
+            {
+                [6] = "Сколько будет два плюс два умноженное на два?",
+                [9] = "Бревно нужно распилить на 10 частей. Сколько распилов нужно сделать?",
+                [25] = "На двух руках 10 пальцев. Сколько пальцев на 5 руках?",
+                [60] = "Укол делают каждые полчаса. Сколько нужно минут, чтобы сделать три укола?",
+                [2] = "Пять свечей горело, две потухли. Сколько свечей осталось?"
+            };
+            return questionAndAnswerDict;
+        }
+        static string[] GetQuestions(Dictionary<int, string> questionAndAnswerDict)
+        {
+            var questions = new string[questionAndAnswerDict.Count];
+            questionAndAnswerDict.Values.CopyTo(questions, 0);
             return questions;
         }
-        static int[] GetRightAnswer(int countQuestions)
+        static int[] GetRightAnswer(Dictionary<int, string> questionAndAnswerDict)
         {
-            int[] answers = new int[countQuestions];
-            answers[0] = 6;
-            answers[1] = 9;
-            answers[2] = 25;
-            answers[3] = 60;
-            answers[4] = 2;
+            var answers = new int[questionAndAnswerDict.Count];
+            questionAndAnswerDict.Keys.CopyTo(answers, 0);
             return answers;
         }
         static string GetDiagnose(int countRightAnswers)  
         {
-            string[] diagnoses = new string[6];
+            var diagnoses = new string[6];
             diagnoses[0] = "кретин";
             diagnoses[1] = "идиот";
             diagnoses[2] = "дурак";
