@@ -82,14 +82,12 @@ namespace GenIdtConsoleApp
         }
         static List<string> GetQuestions(Dictionary<int, string> questionAndAnswerDict)
         {
-            var questions = new List<string>(); // эту строку можно объединить с нижней 
-            questions = questionAndAnswerDict.Values.ToList();
+            var questions = questionAndAnswerDict.Values.ToList();
             return questions;
         }
         static List<int> GetRightAnswer(Dictionary<int, string> questionAndAnswerDict)
-        {
-            var answers = new List<int>(); // эту строку можно объединить с нижней 
-            answers = questionAndAnswerDict.Keys.ToList();
+        { 
+            var answers = questionAndAnswerDict.Keys.ToList();
             return answers;
         }
 
