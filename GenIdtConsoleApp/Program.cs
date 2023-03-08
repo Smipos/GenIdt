@@ -31,13 +31,15 @@ namespace GenIdtConsoleApp
                 {
                     Console.WriteLine("Вопрос №" + (questionNumber + 1));
                     int randomQuestionIndex = random.Next(0, countQuestions);
+
                     mixedQuestions[questionNumber] = questions[randomQuestionIndex];
                     mixedAnswers[questionNumber] = answers[randomQuestionIndex];
 
-                    var tupleQuestionsAnswers = MixArray(questions, answers, randomQuestionIndex);
+                    
+                    var tupleQuestionsAnswers = MixQuestionsAndAnswers(questions, answers, randomQuestionIndex);
                     questions = tupleQuestionsAnswers.Item1;
-                    answers =tupleQuestionsAnswers.Item2;
-
+                    answers = tupleQuestionsAnswers.Item2;
+                    
                     Console.WriteLine(mixedQuestions[questionNumber]);
 
                     int userAnswer = Convert.ToInt32(Console.ReadLine());
@@ -69,16 +71,16 @@ namespace GenIdtConsoleApp
             };
             return questionAndAnswerDict;
         }
-        static string[] GetQuestions(Dictionary<int, string> questionAndAnswerDict)
+        static List<string> GetQuestions(Dictionary<int, string> questionAndAnswerDict)
         {
-            var questions = new string[questionAndAnswerDict.Count];
-            questionAndAnswerDict.Values.CopyTo(questions, 0);
+            var questions = new List<string>();
+            questions = questionAndAnswerDict.Values.ToList();
             return questions;
         }
-        static int[] GetRightAnswer(Dictionary<int, string> questionAndAnswerDict)
+        static List<int> GetRightAnswer(Dictionary<int, string> questionAndAnswerDict)
         {
-            var answers = new int[questionAndAnswerDict.Count];
-            questionAndAnswerDict.Keys.CopyTo(answers, 0);
+            var answers = new List<int>();
+            answers = questionAndAnswerDict.Keys.ToList();
             return answers;
         }
         static string GetDiagnose(int countRightAnswers)  
@@ -93,20 +95,23 @@ namespace GenIdtConsoleApp
             string yourDiagnose = $"ваш диагноз: {diagnoses[countRightAnswers]}";
             return yourDiagnose;
         }
-        public static Tuple<string[], int[]> MixArray(string[] questions, int[] answers, int randomQuestionIndex)
+        public static Tuple<List<string>, List<int>> MixQuestionsAndAnswers(List<string> questions, List<int> answers, int randomQuestionIndex)
         {
-            var questionsList = questions.ToList();
-            // конвертирование ToList() => ToArray() стирает все преимущества в скорости от использования массива в приложении
-            // может тогда просто List использовать?
-            // или придумать новый алгоритм
-            questionsList.RemoveAt(randomQuestionIndex);
-            questions = questionsList.ToArray();
-
-            var answersList = answers.ToList();
-            answersList.RemoveAt(randomQuestionIndex);
-            answers = answersList.ToArray();
-
-            return new Tuple<string[], int[]>(questions, answers);
+            var mixedQuestions = MixQuestions(questions, randomQuestionIndex);
+            var mixedAnswers = MixAnswers(answers, randomQuestionIndex);
+            return new Tuple<List<string>, List<int>>(mixedQuestions, mixedAnswers);
+        }
+        public static List<string> MixQuestions(List<string> questions, int randomQuestionIndex)
+        {
+            var mixedQuestions = questions.ToList();
+            mixedQuestions.RemoveAt(randomQuestionIndex);
+            return mixedQuestions;
+        }
+        public static List<int> MixAnswers(List<int> answers, int randomQuestionIndex)
+        {
+            var mixedAnswers = answers.ToList();
+            mixedAnswers.RemoveAt(randomQuestionIndex);
+            return mixedAnswers;
         }
     }
 }
